@@ -4,7 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrea Filippo Salemi | Data Scientist & Developer</title>
-    <meta name="description" content="Portfolio di Andrea Filippo Salemi, Data Scientist e Software Developer.">
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="Portfolio di Andrea Filippo Salemi. Data Scientist e Software Developer con esperienza in Big Data, Machine Learning, Python, C#, Unity e Cloud computing.">
+    <meta name="keywords" content="Andrea Filippo Salemi, Data Scientist, Software Developer, Machine Learning, Big Data, Python, C#, Unity, PyTorch, Catania">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Andrea Filippo Salemi">
+    
+    <!-- Open Graph / LinkedIn / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://andreasalemi.github.io/">
+    <meta property="og:title" content="Andrea Filippo Salemi | Data Scientist & Developer">
+    <meta property="og:description" content="Portfolio di Andrea Filippo Salemi. Data Scientist e Software Developer esperto in Machine Learning e ottimizzazione algoritmica.">
+    <meta property="og:image" content="https://andreasalemi.github.io/preview.jpg"> <!-- Modifica con un'immagine di anteprima reale -->
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://andreasalemi.github.io/">
+    <meta name="twitter:title" content="Andrea Filippo Salemi | Data Scientist & Developer">
+    <meta name="twitter:description" content="Portfolio di Andrea Filippo Salemi. Data Scientist e Software Developer esperto in Machine Learning e ottimizzazione algoritmica.">
+    <meta name="twitter:image" content="https://andreasalemi.github.io/preview.jpg">
+
+    <!-- JSON-LD (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Andrea Filippo Salemi",
+      "jobTitle": "Data Scientist & Software Developer",
+      "url": "https://andreasalemi.github.io/",
+      "sameAs": [
+        "https://github.com/Andr995",
+        "https://www.linkedin.com/in/andrea-salemi-749603bb/"
+      ],
+      "alumniOf": "Università degli Studi di Catania",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Catania",
+        "addressCountry": "Italy"
+      }
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +105,7 @@
                 <a href="#contact" class="nav-link">Contatti</a>
             </nav>
             <!-- Mobile Menu Button -->
-            <button class="md:hidden text-gray-300 hover:text-white" id="mobile-menu-btn">
+            <button class="md:hidden text-gray-300 hover:text-white" id="mobile-menu-btn" aria-label="Apri menu di navigazione" aria-expanded="false" aria-controls="mobile-menu">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
@@ -78,8 +118,10 @@
             <a href="#projects" class="nav-link mobile-link">Progetti</a>
             <a href="#contact" class="nav-link mobile-link">Contatti</a>
         </div>
+        </div>
     </header>
 
+    <main>
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden" id="home">
         <!-- Abstract gradient background blobs -->
@@ -97,10 +139,10 @@
                     Data Scientist & Software Developer. Trasformo problemi complessi in soluzioni intelligenti e performanti, unendo l'analisi dei dati all'ingegneria del software.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="#projects" class="btn-primary">
+                    <a href="#projects" class="btn-primary" aria-label="Guarda i miei progetti su GitHub">
                         Guarda i miei lavori
                     </a>
-                    <a href="#contact" class="btn-secondary">
+                    <a href="#contact" class="btn-secondary" aria-label="Vai alla sezione contatti per scrivermi">
                         Contattami
                     </a>
                 </div>
@@ -345,7 +387,7 @@
             </div>
             
             <div class="mt-12 text-center">
-                <a href="https://github.com/Andr995" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-white hover:text-cyan font-mono transition-colors group">
+                <a href="https://github.com/Andr995" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-white hover:text-cyan font-mono transition-colors group" aria-label="Visita il mio profilo GitHub completo">
                     <span>Vedi tutto sul mio GitHub</span>
                     <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -382,6 +424,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="py-8 border-t border-white/5 text-center text-sm text-gray-500 font-mono">
