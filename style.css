@@ -8,6 +8,47 @@
     --purple: #9d4edd;
     --dark-bg: #0b0d17;
     --dark-surface: #151828;
+    --text-muted: #9ca3af;
+}
+
+/* Trans Unicorn Theme */
+body.theme-unicorn {
+    --cyan: #ff69b4; /* Hot Pink */
+    --purple: #ff1493; /* Deep Pink */
+    --dark-bg: #ffe4e1; /* Misty Rose */
+    --dark-surface: #ffb6c1; /* Light Pink */
+    --text-muted: #c71585; /* Medium Violet Red */
+    color: #4a0e4e; /* Darker purple for main text contrast */
+}
+
+/* Unicorn Background Animation */
+#unicorn-bg-element {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50vw;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -10;
+    transition: opacity 0.8s ease;
+    user-select: none;
+}
+
+body.theme-unicorn #unicorn-bg-element {
+    opacity: 0.25;
+}
+
+@keyframes nod-unicorn {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) rotate(-25deg); }
+    50% { transform: translate(-50%, -50%) rotate(15deg); }
+    75% { transform: translate(-50%, -50%) rotate(-10deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+.unicorn-animate {
+    animation: nod-unicorn 0.6s ease-in-out !important;
 }
 
 /* Custom Blink for Cursor */

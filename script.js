@@ -171,4 +171,35 @@ document.addEventListener('DOMContentLoaded', () => {
         // Avvia dopo un piccolo delay iniziale
         setTimeout(typeWriter, 300);
     }
+
+    // --- Unicorn Theme Toggle ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const unicornBgElement = document.getElementById('unicorn-bg-element');
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isUnicorn = document.body.classList.toggle('theme-unicorn');
+            
+            if (isUnicorn) {
+                themeToggleBtn.textContent = '💻';
+                themeToggleBtn.setAttribute('aria-label', 'Torna al tema scuro');
+            } else {
+                themeToggleBtn.textContent = '🦄';
+                themeToggleBtn.setAttribute('aria-label', 'Attiva tema unicorno');
+            }
+        });
+    }
+
+    // Listener su tutto il documento per l'animazione dell'unicorno
+    if (unicornBgElement) {
+        document.addEventListener('click', (e) => {
+            // Se il tema unicorno è attivo e non stiamo cliccando sul bottone di toggle stesso
+            if (document.body.classList.contains('theme-unicorn') && !e.target.closest('#theme-toggle')) {
+                unicornBgElement.classList.remove('unicorn-animate');
+                void unicornBgElement.offsetWidth; // trigger reflow
+                unicornBgElement.classList.add('unicorn-animate');
+            }
+        });
+    }
+
 });

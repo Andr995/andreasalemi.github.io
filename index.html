@@ -58,11 +58,11 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBase: '#0b0d17',
-                        darkSurface: '#151828',
-                        cyan: '#00f3ff',
-                        purple: '#9d4edd',
-                        textMuted: '#9ca3af',
+                        darkBase: 'var(--dark-bg)',
+                        darkSurface: 'var(--dark-surface)',
+                        cyan: 'var(--cyan)',
+                        purple: 'var(--purple)',
+                        textMuted: 'var(--text-muted)',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -89,7 +89,9 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-darkBase text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-cyan selection:text-darkBase">
+<body class="bg-darkBase text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-cyan selection:text-darkBase transition-colors duration-500">
+    <!-- Unicorn Background Element -->
+    <div id="unicorn-bg-element">🦄</div>
 
     <!-- Navbar -->
     <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
@@ -527,7 +529,7 @@
 
     <!-- Footer -->
     <footer class="py-8 border-t border-white/5 text-center text-sm text-gray-500 font-mono">
-        <p>Progettato e Sviluppato da <span class="text-cyan">Andrea Filippo Salemi</span> &copy; <span id="year"></span></p>
+        <p>Progettato e Sviluppato da <span class="text-cyan transition-colors">Andrea Filippo Salemi</span> &copy; <span id="year"></span> <button id="theme-toggle" class="ml-2 inline-block hover:scale-125 transition-transform" aria-label="Attiva tema unicorno">🦄</button></p>
     </footer>
 
     <script src="script.js"></script>
