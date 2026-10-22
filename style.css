@@ -1548,3 +1548,440 @@ main, footer { position: relative; z-index: 1; }
     .hero-description { font-size: 18px; }
     .figure-margin-note { right: -16px; }
 }
+
+/* Project previews: composed from the projects' real material and kept cheap to paint. */
+.experience-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.experience-date .experience-range {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    color: var(--text);
+    line-height: 1.7;
+}
+
+.experience-date .experience-range span {
+    display: inline;
+    margin: 0;
+    color: var(--muted);
+}
+
+.experience-date .experience-duration {
+    display: inline-flex;
+    margin: 0;
+    padding: 3px 7px;
+    border: 1px solid var(--line);
+    color: var(--accent);
+    font: 10px var(--mono);
+}
+
+.experience-date .experience-context {
+    display: block;
+    margin: 0;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.nav-github {
+    color: var(--accent);
+}
+
+.project-card:focus-visible,
+.repo-row:focus-visible,
+.nav-link:focus-visible,
+.mobile-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+}
+
+.project-stack .project-card {
+    min-height: 245px;
+    padding-right: 46%;
+    overflow: hidden;
+}
+
+.project-stack .project-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 390px;
+}
+
+.project-stack .project-card-title {
+    font-size: clamp(24px, 2.2vw, 31px);
+}
+
+.project-preview {
+    position: absolute;
+    top: 61px;
+    right: 0;
+    bottom: 24px;
+    width: 42%;
+    overflow: hidden;
+    border-left: 1px solid var(--line);
+    background: #111b19;
+    color: var(--accent);
+    opacity: .56;
+    transform: translateX(5px);
+    transition: opacity .24s ease, transform .3s cubic-bezier(.2,.7,.2,1);
+    pointer-events: none;
+}
+
+.project-card:hover .project-preview,
+.project-card:focus-visible .project-preview,
+.project-card:focus-within .project-preview {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.preview-label {
+    position: absolute;
+    z-index: 2;
+    right: 9px;
+    bottom: 7px;
+    left: 9px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    color: #99aaa1;
+    font: 7px var(--mono);
+    letter-spacing: .06em;
+}
+
+.limbo-preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: saturate(.62) brightness(.76);
+    transition: filter .24s ease, transform .35s ease;
+}
+
+.limbo-preview.is-fallback {
+    display: grid;
+    place-items: center;
+    background-color: #17201a;
+    background-image: linear-gradient(rgba(110, 139, 119, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(110, 139, 119, .1) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.limbo-preview.is-fallback img { display: none; }
+
+.limbo-preview.is-fallback::before {
+    content: 'A STATE\A OF LIMBO';
+    color: #d0d8d0;
+    font: 600 13px/1.7 var(--display);
+    letter-spacing: .08em;
+    text-align: center;
+    white-space: pre;
+}
+
+.project-limbo:hover .limbo-preview img,
+.project-limbo:focus-visible .limbo-preview img {
+    filter: saturate(.9) brightness(.94);
+    transform: scale(1.025);
+}
+
+.limbo-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(9, 14, 12, .72), transparent 44%);
+}
+
+.limbo-play {
+    position: absolute;
+    z-index: 1;
+    inset: 50% auto auto 50%;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid rgba(231, 238, 232, .7);
+    border-radius: 50%;
+    color: #f0f3ee;
+    font-size: 12px;
+    transform: translate(-50%, -50%);
+}
+
+.steg-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 8px 25px;
+    pointer-events: auto;
+}
+
+.steg-comparison {
+    --split: 50%;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #202824;
+}
+
+.steg-comparison.is-fallback {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #344139;
+}
+
+.steg-comparison.is-fallback::before,
+.steg-comparison.is-fallback::after {
+    display: grid;
+    place-items: center;
+    background: #17201a;
+    color: #aebcaf;
+    font: 7px/1.8 var(--mono);
+    text-align: center;
+    white-space: pre;
+}
+
+.steg-comparison.is-fallback::before { content: 'CAMPIONE\A ORIGINALE'; }
+.steg-comparison.is-fallback::after { content: 'PAYLOAD LSB\A 01001000\A DCT'; color: var(--accent); }
+.steg-comparison.is-fallback img { display: none; }
+
+.steg-comparison img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.steg-encoded {
+    clip-path: inset(0 calc(100% - var(--split)) 0 0);
+}
+
+.steg-divider {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: var(--split);
+    width: 1px;
+    background: #d2dfd5;
+    box-shadow: 0 0 0 1px rgba(10, 16, 13, .45);
+    transform: translateX(-.5px);
+}
+
+.steg-label {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    padding: 3px 4px;
+    background: rgba(8, 13, 11, .8);
+    color: #e6ece6;
+    font: 6px var(--mono);
+}
+
+.steg-label-original { left: 5px; }
+.steg-label-encoded { right: 5px; }
+
+.lidar-preview {
+    background-color: #101815;
+    background-image: linear-gradient(rgba(110, 139, 119, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(110, 139, 119, .09) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.lidar-preview > .preview-label {
+    top: 8px;
+    bottom: auto;
+}
+
+.lidar-scan {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 78%;
+    overflow: visible;
+    transform: translate(-50%, -45%);
+}
+
+.lidar-ring, .lidar-axis {
+    fill: none;
+    stroke: #66786d;
+    stroke-width: .7;
+    opacity: .7;
+}
+
+.lidar-route, .lidar-obstacle {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.4;
+}
+
+.lidar-returns { fill: #b5c6b6; }
+.lidar-obstacle { stroke: #d39756; stroke-width: 1; }
+.lidar-robot { fill: var(--accent); }
+
+.lidar-sweep {
+    transform-origin: 110px 78px;
+    transition: transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+.lidar-sweep path {
+    fill: none;
+    stroke: #9bc69f;
+    stroke-width: 1;
+    opacity: .72;
+}
+
+.project-lidar:hover .lidar-sweep,
+.project-lidar:focus-visible .lidar-sweep {
+    transform: rotate(130deg);
+}
+
+.detection-study {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 290px;
+    border-block: 1px solid var(--line);
+    background-color: #101815;
+    background-image: linear-gradient(rgba(110, 139, 119, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(110, 139, 119, .08) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.detection-readout, .detection-caption {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 1px;
+    color: #99aaa1;
+    font: 8px var(--mono);
+}
+
+.detection-readout span:last-child { color: var(--accent); }
+
+.detection-scene {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow: visible;
+}
+
+.scene-grid {
+    fill: none;
+    stroke: #43554a;
+    stroke-width: .7;
+}
+
+.scene-structure {
+    fill: none;
+    stroke: #738176;
+    stroke-width: 1.1;
+}
+
+.scene-object {
+    fill: none;
+    stroke: #b2c0b2;
+    stroke-width: 2;
+}
+
+.scene-object-two { stroke: #929e93; }
+
+.detection-scene .detection-frame {
+    position: static;
+    width: auto;
+    height: auto;
+    left: auto;
+    top: auto;
+    fill: rgba(159, 190, 160, .025);
+    stroke: #d3dfd2;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 3;
+}
+
+.detection-scene .frame-two {
+    fill: rgba(153, 199, 158, .07);
+    stroke: var(--accent);
+}
+
+.detection-caption {
+    position: relative;
+    bottom: auto;
+    font-size: 8px;
+}
+
+.detector-sweep {
+    stroke: var(--accent);
+    stroke-width: .8;
+    opacity: .52;
+    transform: translateY(-65px);
+}
+
+.project-featured:hover .detector-sweep,
+.project-featured:focus-visible .detector-sweep {
+    animation: detector-scan 1.7s ease-in-out infinite alternate;
+}
+
+@keyframes detector-scan {
+    to { transform: translateY(65px); opacity: .8; }
+}
+
+.repo-row {
+    transition: background-color .18s ease, padding-inline .18s ease;
+}
+
+.repo-row:hover {
+    padding-inline: 10px;
+    background: var(--surface);
+}
+
+@media (max-width: 800px) {
+    .project-stack .project-card { min-height: 230px; }
+    .detection-study { height: 230px; }
+}
+
+@media (max-width: 580px) {
+    .experience-date { gap: 5px; }
+    .experience-date .experience-duration,
+    .experience-date .experience-context {
+        display: inline-block;
+        margin: 0;
+    }
+    .experience-date .experience-context { margin-left: 0; }
+
+    .project-stack .project-card {
+        min-height: 0;
+        padding-right: 0;
+        padding-bottom: 21px;
+    }
+
+    .project-stack .project-copy { max-width: none; }
+
+    .project-preview {
+        position: relative;
+        inset: auto;
+        display: block;
+        width: min(100%, 340px);
+        height: 180px;
+        margin: 18px 0 0 auto;
+        opacity: 1;
+        transform: none;
+    }
+
+    .steg-preview { height: auto; padding-bottom: 25px; }
+    .steg-comparison { width: min(100%, 200px); margin: 0 auto; }
+    .lidar-scan { width: min(100%, 280px); }
+}
+
+@media (pointer: coarse) {
+    .project-preview { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-preview, .limbo-preview img, .lidar-sweep { transition: none; }
+    .project-featured:hover .detector-sweep,
+    .project-featured:focus-visible .detector-sweep { animation: none; }
+}

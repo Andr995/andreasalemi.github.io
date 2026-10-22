@@ -43,13 +43,22 @@ def exit_game(page):
 
 REPOS = [dict(name=f'Repository-{i}', description='<b>Plain text</b>' if i == 7 else 'Descrizione di prova',
               html_url=f'https://github.com/Andr995/repo-{i}', language='Python', fork=i == 8,
-              updated_at=f'2026-10-{i+1:02d}T12:00:00Z', stargazers_count=i) for i in range(9)]
+              archived=i == 9,
+              updated_at=(f'2022-10-{i+1:02d}T12:00:00Z' if i == 10 else f'2026-10-{i+1:02d}T12:00:00Z'),
+              pushed_at=(f'2022-10-{i+1:02d}T12:00:00Z' if i == 10 else f'2026-10-{i+1:02d}T12:00:00Z'),
+              stargazers_count=i) for i in range(11)]
 
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         context = browser.new_context(viewport={'width':1440,'height':1000})
-        context.route('https://api.github.com/**', lambda route: route.fulfill(json=REPOS))
+        repo_requests = []
+        def mock_repos(route):
+            repo_requests.append(route.request.url)
+            route.fulfill(json=REPOS)
+        context.route('https://api.github.com/**', mock_repos)
+        context.route('https://img.youtube.com/**', lambda route: route.fulfill(status=404))
+        context.route('https://raw.githubusercontent.com/**', lambda route: route.fulfill(status=404))
         page = context.new_page()
         errors = []
         page.on('pageerror', lambda error: (errors.append(str(error)), print('BROWSER ERROR:',str(error),flush=True)))
@@ -59,7 +68,36 @@ try:
         assert page.locator('.repo-row h4').all_text_contents() == [f'Repository-{i}' for i in [7,6,5,4,3,2]]
         assert page.locator('.repo-description b').count() == 0
         assert page.locator('#projects-loading').is_hidden()
-        passed('GitHub: non-forks, date order, six results, safe text rendering')
+        assert 'sort=updated' in repo_requests[0] and 'per_page=100' in repo_requests[0]
+        page.reload(wait_until='networkidle')
+        assert len(repo_requests) == 1, 'Fresh session cache should avoid another GitHub request'
+        assert page.locator('.repo-row').count() == 6
+        passed('GitHub: active non-forks, archive/stale filtering, date order, safe rendering and cache')
+        assert page.locator('.experience-duration').all_text_contents() == ['· 5 mesi', '· 3 anni e 2 mesi']
+        assert page.locator('.experience-duration').nth(1).get_attribute('aria-label') == 'Durata: 3 anni e 2 mesi'
+        passed('Experience lengths are calculated and announced accessibly')
+        assert page.locator('link[rel="icon"][type="image/svg+xml"]').get_attribute('href') == 'favicon.svg'
+        for filename, signature in [('favicon.svg', b'<svg'), ('favicon-32.png', b'\x89PNG'), ('favicon.ico', b'\x00\x00\x01\x00')]:
+            response = page.request.get(URL + '/' + filename)
+            assert response.ok and response.body().startswith(signature), filename
+        passed('SVG favicon and PNG/ICO fallbacks are served with valid signatures')
+        assert page.locator('.project-preview').count() == 3
+        preview = page.locator('.project-lidar .project-preview')
+        page.locator('.project-lidar').hover()
+        page.wait_for_function("parseFloat(getComputedStyle(document.querySelector('.lidar-preview')).opacity) >= 0.99")
+        assert preview.evaluate("el=>getComputedStyle(el).opacity") == '1'
+        assert page.locator('.project-limbo .project-preview img').get_attribute('src').endswith('mVXbDGCF2_Y/hqdefault.jpg')
+        page.locator('.project-limbo').scroll_into_view_if_needed()
+        page.wait_for_selector('.limbo-preview.is-fallback')
+        split = page.locator('.steg-comparison')
+        split.scroll_into_view_if_needed()
+        page.wait_for_selector('.steg-comparison.is-fallback')
+        split_box = split.bounding_box()
+        page.mouse.move(split_box['x'] + split_box['width'] * .8, split_box['y'] + split_box['height'] / 2)
+        assert split.evaluate("el=>parseFloat(getComputedStyle(el).getPropertyValue('--split'))") > 75
+        page.locator('body').hover(position={'x':5,'y':5})
+        assert split.evaluate("el=>el.style.getPropertyValue('--split')") == '50%'
+        passed('Project previews reveal on hover and steganography comparison follows the pointer')
         assert page.locator('.asteroids-game').count() == 0
         assert 'Asteroids' not in page.locator('body').inner_text()
         assert page.locator('body').evaluate("el=>getComputedStyle(el).backgroundColor") == 'rgb(16, 21, 18)'
@@ -107,6 +145,7 @@ try:
         page.locator('#theme-toggle').click()
         assert page.locator('body').evaluate("el=>el.classList.contains('theme-unicorn')")
         assert page.locator('#theme-toggle').inner_text() == '💻'
+        assert page.locator('.hero-description').evaluate("el=>getComputedStyle(el,'::selection').backgroundColor") == 'rgb(237, 165, 208)'
         page.locator('footer p').click()
         assert page.locator('#unicorn-bg-element').evaluate("el=>el.classList.contains('unicorn-animate')")
         page.evaluate("scrollTo({top:0,behavior:'instant'})")

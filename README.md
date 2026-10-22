@@ -8,11 +8,13 @@ Avvio locale dalla cartella del progetto:
 python -m http.server 4173 --bind 127.0.0.1
 ```
 
-Apri http://127.0.0.1:4173. Il sito funziona anche su GitHub Pages. I font vengono serviti da Google Fonts, con fallback sans e monospace; i sei repository originali più recenti vengono letti dall'API pubblica di GitHub. Il link diretto al profilo resta disponibile se l'API non risponde.
+Apri http://127.0.0.1:4173. Il sito funziona anche su GitHub Pages. I font vengono serviti da Google Fonts, con fallback sans e monospace. La lista legge da GitHub i repository originali non archiviati, aggiornati negli ultimi tre anni; la risposta è conservata in sessione per 15 minuti e il link al profilo resta disponibile se l'API non risponde.
 
 ## Tema
 
 Tema workstation: fondo carbone, testo chiaro e accenti verde fosforo; Space Grotesk, IBM Plex Sans e IBM Plex Mono. La variante unicorno resta scura, con accenti rosa e sfondo animato: il pulsante nel footer e l'animazione al clic mantengono il comportamento originale. Nessuna preferenza viene aggiunta al localStorage.
+
+La favicon SVG riprende il cubo isometrico della Hero; PNG e ICO coprono i browser che preferiscono formati raster. Le date della timeline mostrano anche la durata calcolata in mesi di calendario. Le anteprime dei progetti usano il trailer di *A State of Limbo*, campioni del repository di steganografia e schemi leggeri per YOLO e Lidar; su touch sono visibili senza hover.
 
 ## Asteroids
 
@@ -34,4 +36,4 @@ node --check asteroids.js
 python tests/browser_checks.py
 ```
 
-Il test browser usa Python Playwright e Chromium già installati nell'ambiente di sviluppo; non sono dipendenze del sito. Avvia e chiude un server locale autonomamente. Copre layout responsive, GitHub (successo/vuoto/errore), menu, unicorno, attivazione segreta da tastiera e input emoji nativo, font emoji effettivamente usato, adattamento al viewport, frammentazione, inerzia, wrap-around, vite, game over e ripristino dello stato. Screenshot e misure dei frame sono salvati in `artifacts/` (ignorata da Git).
+Il test browser usa Python Playwright e Chromium già installati nell'ambiente di sviluppo; non sono dipendenze del sito. Avvia e chiude un server locale autonomamente. Copre layout responsive, favicon, durata esperienze, anteprime, GitHub (filtri, cache, successo/vuoto/errore), menu, unicorno, attivazione segreta da tastiera e input emoji nativo, font emoji effettivamente usato, adattamento al viewport, frammentazione, inerzia, wrap-around, vite, game over e ripristino dello stato. Screenshot e misure dei frame sono salvati in `artifacts/` (ignorata da Git).
